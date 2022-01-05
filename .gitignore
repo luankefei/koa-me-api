@@ -1,5 +1,5 @@
 # private
-/db/database.yaml
+/src/db
 /src/app.constants.ts
 
 # compiled output
