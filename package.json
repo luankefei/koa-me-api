@@ -1,0 +1,88 @@
+{
+  "name": "koa-me-api",
+  "version": "1.0.0",
+  "description": "koa version",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "kefei",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:watch": "webpack --watch",
+    "build:prod": "better-npm-run build:prod",
+    "build:pre": "better-npm-run build:pre",
+    "build:dev": "better-npm-run build:dev",
+    "coverage": "npm test -- --coverage",
+    "coverage:notify": "npm run coverage -- --watch --notify",
+    "format": "prettier --no-semi --single-quote --parser typescript --write \"src/**/*.ts\"",
+    "format:pb": "prettier --no-semi --single-quote --parser typescript --write \"src/proto/**/*.ts\"",
+    "lint": "tslint -c tsconfig.json \"src/**/**.ts*\"",
+    "precommit": "lint-staged",
+    "preupver": "npm test",
+    "pretest": "npm run build",
+    "start": "npm run build && node dist/index.js",
+    "start:dev": "npm run build:dev && NODE_ENV=development MODE=dev node dist/index.js",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:notify": "npm run test:watch -- --notify",
+    "upver": "standard-version"
+  },
+  "betterScripts": {
+    "build:dev": {
+      "command": "webpack",
+      "env": {
+        "NODE_ENV": "development",
+        "MODE": "dev"
+      }
+    },
+    "build:pre": {
+      "command": "webpack",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "pre"
+      }
+    },
+    "build:prod": {
+      "command": "webpack",
+      "env": {
+        "NODE_ENV": "production",
+        "MODE": "prod"
+      }
+    }
+  },
+  "lint-staged": {
+    "src/**/**.ts": [
+      "prettier --no-semi --single-quote --parser typescript --write",
+      "tslint -e \"src/*.d.ts\"",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luankefei/koa-me-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luankefei/koa-me-api/issues"
+  },
+  "homepage": "https://github.com/luankefei/koa-me-api#readme",
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
