@@ -10,7 +10,7 @@ export default {
   env: NODE_ENV as EnvNodeEnv,
   mode: MODE as EnvMode,
   debug: DEBUG,
-  port: parseInt(process.env.PORT || "", 10) || 8371,
+  port: parseInt(process.env.PORT || "", 10) || 8000,
   route: {
     prefix: "/api/m/node",
     articleH5Path: "/article/h5",
