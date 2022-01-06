@@ -10,20 +10,10 @@ import { IUser } from "../interface/user.interface";
 
 // @Injectable()
 export class UserService {
-  // private readonly connection = getTypeORM("me");
-
-  // connection.getRepository(User)
-
-  // TODO: 这里有问题
   private readonly userRepository: Repository<User>;
 
   constructor() {
-    // @InjectRepository(User)
-
     this.userRepository = getManager().getRepository(User);
-    console.log("after connection");
-    // console.log("getManager", getManager());
-    // this.userRepository = getManager().getRepository(User);
   }
 
   create(user: IUser): Promise<User> {
@@ -43,21 +33,10 @@ export class UserService {
   }
 
   findAll(): Promise<User[]> {
-    // return Promise.resolve([new User()]);
     return this.userRepository.find();
   }
 
-  // async validateUser(username: string, pass: string): Promise<any> {
-  //   const user = await this.findOne(username);
-  //   if (user && user.password === pass) {
-  //     const { password, ...result } = user;
-  //     return result;
-  //   }
-  //   return null;
-  // }
-
-  // async login(user: any) {
-  //   const payload = { username: user.username,  };
-  //   return this.validateUser();
+  // async login(username, password) {
+  //   return this.validateUser(username, password);
   // }
 }

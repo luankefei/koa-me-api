@@ -13,7 +13,7 @@ import crypto from "crypto";
 //   Response,
 //   UnauthorizedException,
 // } from "@nestjs/common";
-// import { TypeORMError } from "typeorm";
+import { TypeORMError } from "typeorm";
 import { UserService } from "./user.service";
 // import { Request } from 'express';
 // import { User } from "./user.entity";
@@ -53,7 +53,6 @@ const encrypt = (password, salt) => {
   return md5(md5(password) + salt);
 };
 
-// @Controller("user")
 export class UserController {
   private readonly userService: UserService;
 
@@ -78,22 +77,25 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  // @post
-  // async login(res, user: IUser): Promise<IUser> {
-  //   const { username, password } = user;
-  //   const result = await this.userService.validateUser(username, password);
-  //   const salt = generateSalt();
-  //   const userNameHash = encrypt(username, salt);
-  //   if (result === null) {
-  //     throw new TypeORMError("UnauthorizedException 401");
-  //     // throw UnauthorizedException;
-  //   }
+  async validateUser(username: string, pass: string): Promise<IUser | null> {
+    const user = await this.findOne(username);
 
-  //   res.cookie("me_signed_username", userNameHash, {
-  //     maxAge: 1000 * 60 * 24,
-  //     httpOnly: true,
-  //   });
+    if (user && user.password === encrypt(pass, user.salt)) {
+      delete user.password;
+      delete user.salt;
+      return user;
+    }
+    return null;
+  }
 
-  //   return result;
-  // }
+  async login(username: string, password: string): Promise<string> {
+    const result = await this.validateUser(username, password);
+    const salt = generateSalt();
+    const userNameHash = encrypt(username, salt);
+    if (result === null) {
+      throw new TypeORMError("UnauthorizedException 401");
+    }
+
+    return userNameHash;
+  }
 }
