@@ -5,6 +5,13 @@ import { UserController } from "./user.controller";
 export default async (router: Router) => {
   const userActions = new UserController();
 
+  router.post("/user", async (ctx) => {
+    const params = ctx.request.body;
+    console.log("posted user info", params);
+    const user = await userActions.createUser(params);
+    ctx.body = user;
+  });
+
   // http://localhost:8000/api/me/user/runrunrun
   router.get("/user/:username", async (ctx) => {
     const { username } = ctx.params;

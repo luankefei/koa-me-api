@@ -6,7 +6,7 @@
 import { Connection, getManager, Repository } from "typeorm";
 import { User } from "./user.entity";
 // import { getTypeORM } from "../db/mysql.db";
-// import { IUser } from "../interface/user.interface";
+import { IUser } from "../interface/user.interface";
 
 // @Injectable()
 export class UserService {
@@ -26,17 +26,17 @@ export class UserService {
     // this.userRepository = getManager().getRepository(User);
   }
 
-  // create(user: IUser): Promise<User> {
-  //   const temp = new User();
-  //   temp.email = user.email;
-  //   temp.level = 0;
-  //   temp.nickname = user.nickname;
-  //   temp.password = user.password;
-  //   temp.salt = user.salt;
-  //   temp.username = user.username;
+  create(user: IUser): Promise<User> {
+    const temp = new User();
+    temp.email = user.email;
+    temp.level = 0;
+    temp.nickname = user.nickname;
+    temp.password = user.password;
+    temp.salt = user.salt;
+    temp.username = user.username;
 
-  //   return this.userRepository.save(temp);
-  // }
+    return this.userRepository.save(temp);
+  }
 
   findOne(username: string): Promise<User | undefined> {
     return this.userRepository.findOne({ username });
