@@ -17,7 +17,7 @@
 import { UserService } from "./user.service";
 // import { Request } from 'express';
 // import { User } from "./user.entity";
-// import { IUser } from "../interface/user.interface";
+import { IUser } from "../interface/user.interface";
 
 /*
  * 10位盐
@@ -55,8 +55,11 @@ export class UserController {
   //   return this.userService.create(user);
   // }
 
-  // @get
-  findAll(): Promise<any[]> {
+  findOne(username: string): Promise<IUser> {
+    return this.userService.findOne(username);
+  }
+
+  findAll(): Promise<IUser[]> {
     return this.userService.findAll();
   }
 

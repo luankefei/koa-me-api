@@ -38,10 +38,9 @@ export class UserService {
   //   return this.userRepository.save(temp);
   // }
 
-  // findOne(username: string): Promise<User | undefined> {
-  //   console.log("TODO findone: ", username);
-  //   return this.userRepository.find()[0];
-  // }
+  findOne(username: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ username });
+  }
 
   findAll(): Promise<User[]> {
     // return Promise.resolve([new User()]);

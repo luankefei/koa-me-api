@@ -5,10 +5,16 @@ import { UserController } from "./user.controller";
 export default async (router: Router) => {
   const userActions = new UserController();
 
+  // http://localhost:8000/api/me/user/runrunrun
+  router.get("/user/:username", async (ctx) => {
+    const { username } = ctx.params;
+    const user = await userActions.findOne(username);
+    ctx.body = user;
+  });
+
+  // http://localhost:8000/api/me/users
   router.get("/users", async (ctx) => {
     const users = await userActions.findAll();
-    console.log(users);
     ctx.body = users;
-    // return;
   });
 };
