@@ -12,7 +12,7 @@ export default {
   debug: DEBUG,
   port: parseInt(process.env.PORT || "", 10) || 8000,
   route: {
-    prefix: "/api/m/node",
+    prefix: "/api/me",
     articleH5Path: "/article/h5",
     wxH5Path: "/wx/h5",
     canvasApi: "/canvas",

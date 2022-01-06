@@ -10,7 +10,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build": "webpack --config webpack.config.js --color --progress",
     "build:watch": "webpack --watch",
     "build:prod": "better-npm-run build:prod",
     "build:pre": "better-npm-run build:pre",
@@ -98,6 +98,7 @@
     "moment": "^2.29.1",
     "mysql2": "^2.3.3",
     "source-map-support": "^0.5.21",
+    "typeorm": "^0.2.41",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
   },

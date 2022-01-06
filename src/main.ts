@@ -1,7 +1,7 @@
 import * as Koa from "koa";
 
 import middleware from "./middleware";
-import router from "./middleware";
+import router from "./middleware/router.mw";
 import connectDB, { dispose as disposeDB } from "./db";
 import getLogger from "./helper/logger.helper";
 
@@ -23,15 +23,17 @@ function shutdown(code: number = 0) {
 }
 
 export default async function main(options: any) {
-  // const err = await connectDB(options.mode);
-  // if (err) {
-  //   throw err;
-  // }
+  const err = await connectDB(options.mode);
+  if (err) {
+    throw err;
+  }
 
   const app = new Koa();
 
   // use middlewares
   middleware(app, options);
+
+  console.log("before routes", options);
 
   // user routers
   router(app, options);
@@ -42,14 +44,14 @@ export default async function main(options: any) {
   };
 
   // tslint:disable-next-line
-  // ["SIGUSR1", "SIGUSR2", "SIGINT", "SIGTERM"].map((sig: any) => process.on(sig, exiting));
+  ["SIGUSR1", "SIGUSR2", "SIGINT", "SIGTERM"].map((sig: any) => process.on(sig, exiting));
 
   // uncaughtException
-  // process.on("uncaughtException", (err: Error) => {
-  //   logger.error("process.uncaughtException:", err.message, err.stack);
+  process.on("uncaughtException", (err: Error) => {
+    logger.error("process.uncaughtException:", err.message, err.stack);
 
-  //   shutdown(1);
-  // });
+    shutdown(1);
+  });
 
   // ---------------------------------------------------------------------------
 

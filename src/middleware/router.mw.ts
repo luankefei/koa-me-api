@@ -7,10 +7,12 @@ import * as Router from "koa-router";
 // import aliyunRouters from "./aliyun.router";
 // import canvasRoutes from "./canvas.router";
 // import feedbackRoutes from "./feedback.router";
+import userRoutes from "../user/user.router";
 
 import { IMainOptions } from "../interface";
 
 export default function router(app: Koa, options: IMainOptions) {
+  console.log("router prefix: ", options.route.prefix);
   const rootRouter = new Router({ prefix: options.route.prefix });
 
   // laixuanH5Routers(rootRouter, options);
@@ -18,6 +20,7 @@ export default function router(app: Koa, options: IMainOptions) {
   // aliyunRouters(rootRouter, options);
   // canvasRoutes(rootRouter, options);
   // feedbackRoutes(rootRouter);
+  userRoutes(rootRouter);
 
   app.use(rootRouter.routes());
   app.use(rootRouter.allowedMethods());
