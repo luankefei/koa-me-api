@@ -1,11 +1,8 @@
 /**
  * 用户相关服务
  */
-// import { Injectable } from "@nestjs/common";
-// import { InjectRepository } from "@nestjs/typeorm";
-import { Connection, getManager, Repository } from "typeorm";
+import { getManager, Repository } from "typeorm";
 import { User } from "./user.entity";
-// import { getTypeORM } from "../db/mysql.db";
 import { IUser } from "../interface/user.interface";
 
 // @Injectable()
@@ -24,6 +21,7 @@ export class UserService {
     temp.password = user.password;
     temp.salt = user.salt;
     temp.username = user.username;
+    temp.avatar = user.avatar;
 
     return this.userRepository.save(temp);
   }
@@ -35,8 +33,4 @@ export class UserService {
   findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
-
-  // async login(username, password) {
-  //   return this.validateUser(username, password);
-  // }
 }

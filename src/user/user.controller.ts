@@ -2,21 +2,9 @@
  * 用户路由
  */
 import crypto from "crypto";
-// import {
-//   Body,
-//   Controller,
-//   Get,
-//   Post,
-//   // Query,
-//   // Req,
-//   // Res,
-//   Response,
-//   UnauthorizedException,
-// } from "@nestjs/common";
 import { TypeORMError } from "typeorm";
+
 import { UserService } from "./user.service";
-// import { Request } from 'express';
-// import { User } from "./user.entity";
 import { IUser } from "../interface/user.interface";
 
 /**
