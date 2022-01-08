@@ -5,6 +5,8 @@ const NODE_ENV = process.env.NODE_ENV !== "production" ? "development" : "produc
 const MODE = process.env.MODE === "dev" ? "dev" : "prod";
 const DEBUG = MODE !== "prod";
 
+console.log("DEBUG mode: ", DEBUG);
+
 export default {
   root: path.resolve("../"),
   env: NODE_ENV as EnvNodeEnv,

@@ -87,10 +87,10 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "isomorphic-fetch": "^3.0.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "koa-cors": "^0.0.16",
     "koa-helmet": "^6.1.0",
     "koa-morgan": "^1.0.1",
     "koa-router": "^10.1.1",

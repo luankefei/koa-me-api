@@ -33,7 +33,26 @@ export default async function main(options: any) {
   // use middlewares
   middleware(app, options);
 
-  console.log("before routes", options);
+  // app.use((ctx: Koa.Context, next) => {
+  //   function afterResponse() {
+  //     ctx.res.removeListener("finish", afterResponse);
+  //     ctx.res.removeListener("close", afterResponse);
+
+  //     // actions after response
+  //     console.log("actions after response", ctx.body);
+  //   }
+  //   ctx.res.on("finish", afterResponse);
+  //   ctx.res.on("close", afterResponse);
+
+  //   // action before request
+  //   // eventually calling `next()`
+  //   next();
+  // });
+
+  // app.use((ctx, next) => {
+  //   console.log("before route", ctx.body);
+  //   next();
+  // });
 
   // user routers
   router(app, options);

@@ -7,12 +7,16 @@ export default async (router: Router) => {
 
   router.post("/auth/login", async (ctx: Context) => {
     const { username, password } = ctx.request.body;
+    console.log("ctx.request.body", ctx.request.body);
     const userNameHash = await userActions.login(username, password);
 
     ctx.cookies.set("me_signed_username", userNameHash, {
-      maxAge: 1000 * 60 * 24,
+      domain: "192.168.50.165:3000",
+      maxAge: 30 * 3600 * 24,
       httpOnly: true,
     });
+
+    console.log("maxage", 30 * 3600 * 24);
 
     ctx.body = userNameHash;
   });

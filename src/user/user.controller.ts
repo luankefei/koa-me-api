@@ -68,6 +68,9 @@ export class UserController {
   async validateUser(username: string, pass: string): Promise<IUser | null> {
     const user = await this.findOne(username);
 
+    console.log("login 2 --------------", user);
+    console.log("login 3 --------------", user.password, encrypt(pass, user.salt));
+
     if (user && user.password === encrypt(pass, user.salt)) {
       delete user.password;
       delete user.salt;
@@ -77,6 +80,7 @@ export class UserController {
   }
 
   async login(username: string, password: string): Promise<string> {
+    console.log("login 1 --------------", username, password);
     const result = await this.validateUser(username, password);
     const salt = generateSalt();
     const userNameHash = encrypt(username, salt);
