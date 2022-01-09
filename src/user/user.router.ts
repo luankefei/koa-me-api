@@ -12,7 +12,7 @@ export default async (router: Router) => {
 
     ctx.cookies.set("me_signed_username", userNameHash, {
       domain: "192.168.50.165:3000",
-      maxAge: 30 * 3600 * 24,
+      maxAge: 30 * 3600 * 24 * 1000,
       httpOnly: true,
     });
 
