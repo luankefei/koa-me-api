@@ -10,13 +10,12 @@ export default async (router: Router) => {
     console.log("ctx.request.body", ctx.request.body);
     const userNameHash = await userActions.login(username, password);
 
+    // maxAge unit is ms
     ctx.cookies.set("me_signed_username", userNameHash, {
       domain: "192.168.50.165:3000",
       maxAge: 30 * 3600 * 24 * 1000,
       httpOnly: true,
     });
-
-    console.log("maxage", 30 * 3600 * 24);
 
     ctx.body = userNameHash;
   });
@@ -39,5 +38,10 @@ export default async (router: Router) => {
   router.get("/users", async (ctx: Context) => {
     const users = await userActions.findAll();
     ctx.body = users;
+  });
+
+  router.get("/user/test/del/:username", async (ctx: Context) => {
+    const { username } = ctx.params;
+    ctx.body = await userActions.removeOne(username);
   });
 };

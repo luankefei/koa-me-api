@@ -58,11 +58,20 @@ export class UserController {
   }
 
   findOne(username: string): Promise<IUser> {
+    console.log("findOneControllerl", username);
     return this.userService.findOne(username);
+  }
+
+  findOneFromHash(userNameHash: string): Promise<IUser> {
+    return this.userService.findOneFromHash(userNameHash);
   }
 
   findAll(): Promise<IUser[]> {
     return this.userService.findAll();
+  }
+
+  removeOne(username: string): Promise<any> {
+    return this.userService.removeOne(username);
   }
 
   async validateUser(username: string, pass: string): Promise<IUser | null> {
@@ -80,7 +89,6 @@ export class UserController {
   }
 
   async login(username: string, password: string): Promise<string> {
-    console.log("login 1 --------------", username, password);
     const result = await this.validateUser(username, password);
     const salt = generateSalt();
     const userNameHash = encrypt(username, salt);
@@ -88,6 +96,8 @@ export class UserController {
       throw new TypeORMError("UnauthorizedException 401");
     }
 
+    // TODO: hash 换 user
+    await this.userService.createUserNameHash(userNameHash, result.username);
     return userNameHash;
   }
 }
