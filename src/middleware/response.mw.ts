@@ -8,7 +8,7 @@ import { Context, Router } from "koa";
 export default async (ctx: Context | Router.IRouterContext, next: () => Promise<any>) => {
   await next();
 
-  if (typeof ctx.body.error !== "undefined") return (ctx.body.data = null);
+  if (ctx.body && typeof ctx.body.error !== "undefined") return (ctx.body.data = null);
 
   ctx.body = {
     error: {
